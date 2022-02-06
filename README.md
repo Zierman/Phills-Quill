@@ -10,7 +10,7 @@ Phill's Quill is a tool aimed to take a .docx file and output the text in a hard
 4. Move that jar file wherever you want it on your filesystem.
 5. \[Optional Advanced Step\] Make a command such as `pq` or `phillsquill` to make the program easier to execute.
     - This step is system dependent and be completed in a number of ways other than what is shown here.
-    - I like to create an alias in my profile for my shell like this: 
+    - I like to create an alias in my profile for my shell like this where `<path-to-phillsquill-jar>` is a placeholder you need to replace with the path: 
 ```shell
     alias phillsquill="java -jar <path-to-phillsquill-jar>"
 ```
