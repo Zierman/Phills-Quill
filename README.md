@@ -3,10 +3,8 @@ Phill's Quill is a tool aimed to take a .docx file and output the text in a hard
 
 ## Installation
 1. Navigate to [the releases](https://github.com/Zierman/phillsquill/releases) for this project.
-2. Choose the version of the software you are interested in
-   - CLI versions are intended to be used in a terminal or with a script.
-   - GUI versions is a typical frame application.
-3. Under assets for the desired version download the jar file (ends in ".jar")
+2. Choose the version of the software you are interested in.
+3. Under assets for the desired version download the jar file (ends in ".jar").
 4. Move that jar file wherever you want it on your filesystem.
 5. \[Optional Advanced Step\] Make a command such as `pq` or `phillsquill` to make the program easier to execute.
     - This step is system dependent and be completed in a number of ways other than what is shown here.
