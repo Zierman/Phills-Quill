@@ -17,6 +17,7 @@ Phill's Quill is a tool aimed to take a .docx file and output the text in a hard
 
 ## Usage
 The following steps assume you set up a `phillsquill` command like shown in the instillation steps above.
+If not, just replace `phillsquill` with `java -jar <path-to-phillsquill-jar>` where `<path-to-phillsquill-jar>` is a placeholder for the path to wherever you placed the jar file.
 
 ### Show Help
 To show a help message, you can run this:
