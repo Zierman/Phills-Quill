@@ -17,13 +17,18 @@ Phill's Quill is a tool aimed to take a .docx file and output the text in a hard
 The following examples assume you set up a `phillsquill` command like shown in the instillation steps above.
 If not, just replace `phillsquill` with `java -jar <path-to-phillsquill-jar>` where `<path-to-phillsquill-jar>` is a placeholder for the path to wherever you placed the jar file.
 
+### Running the program in GUI Mode
+Launching the jar file without providing any arguments should open the application in GUI mode. Alternitively you can use the `-g` argument to run in GUI mode as well which allows you to provide other arguments (see Convert .docx File To Plain Text via command line secton).
+
+If you want to launch the program in auto-conversion mode, use the `-a` option. This will make it so when you load a new document it will be folded without needing to press the convert button.
+
 ### Show Help
 To show a help message, you can run this:
 ```shell
 phillsquill -h
 ```
 
-### Convert .docx File To Plain Text
+### Convert .docx File To Plain Text via command line
 Providing the file's path with no other arguments will convert to text with the default width.
 
 linux/mac example:
