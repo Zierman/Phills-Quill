@@ -9,7 +9,16 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.nio.file.Path;
 
-public class GUI implements Runnable{
+public class GUI implements Runnable {
+
+    private static final int MENU_SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
+    private static final FileNameExtensionFilter PLAIN_TEXT_FILTER = new FileNameExtensionFilter(
+            ".txt",
+            "txt");
+    private static final FileNameExtensionFilter DOCX_FILTER = new FileNameExtensionFilter(
+            ".docx",
+            "docx");
+
     private boolean autoConvert;
     private String originalText;
     private int outputWidth;
@@ -41,8 +50,9 @@ public class GUI implements Runnable{
         fileMenu = new JMenu("File");
         menuBar.add(fileMenu);
 
-        open = new JMenuItem("Open...");
+        open = new JMenuItem("Open...", KeyEvent.VK_O);
         open.addActionListener(menuItemListener);
+        open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, MENU_SHORTCUT_MASK));
         fileMenu.add(open);
 
         // set up the bottom panel
@@ -71,14 +81,14 @@ public class GUI implements Runnable{
         outputTextArea = new JTextArea();
         outputTextArea.setEditable(false);
         outputTextArea.setLineWrap(false);
-        outputTextArea.setMargin(new Insets(10,10,10,10));
+        outputTextArea.setMargin(new Insets(10, 10, 10, 10));
         JScrollPane outputTextScrollPane = new JScrollPane(outputTextArea);
         outputTextScrollPane.setPreferredSize(new Dimension(1000, 500));
         outputTextScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         outputTextScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         contentPane.add(outputTextScrollPane, BorderLayout.CENTER);
 
-        if(pathToDocxFile != null){
+        if (pathToDocxFile != null) {
             loadFile(pathToDocxFile);
         }
 
@@ -121,6 +131,9 @@ public class GUI implements Runnable{
 
                 // let user pick a file
                 fileChooser = new JFileChooser();
+                fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
+                fileChooser.addChoosableFileFilter(DOCX_FILTER);
+                fileChooser.setFileFilter(DOCX_FILTER);
                 int result = fileChooser.showOpenDialog(mainFrame);
                 if (result == JFileChooser.APPROVE_OPTION) { // if the user chooses something
 
@@ -143,7 +156,7 @@ public class GUI implements Runnable{
         // put that text into the text area
         outputTextArea.setText(originalText);
 
-        if (autoConvert){
+        if (autoConvert) {
             convertButton.doClick();
         }
     }
