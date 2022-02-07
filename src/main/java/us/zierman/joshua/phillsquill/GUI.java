@@ -168,7 +168,9 @@ public class GUI implements Runnable {
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(mainFrame,
-                    "\"" + widthField.getText() + "\" cannot be parsed to an integer, using width of " + outputWidth + ".");
+                    "\"" + widthField.getText() + "\" cannot be parsed to an integer, using width of " + outputWidth + ".",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
         return outputWidth;
