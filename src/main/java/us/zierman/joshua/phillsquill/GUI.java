@@ -3,10 +3,16 @@ package us.zierman.joshua.phillsquill;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.nio.file.Path;
 
 public class GUI implements Runnable {
@@ -27,6 +33,7 @@ public class GUI implements Runnable {
     private JMenuBar menuBar;
     private JMenu fileMenu;
     private JMenuItem open;
+    private JMenuItem save;
     private JPanel bottomPanel;
     private JLabel widthFieldLabel;
     private JTextField widthField;
@@ -38,7 +45,6 @@ public class GUI implements Runnable {
         this.autoConvert = autoConvert;
         mainFrame = new JFrame();
         Container contentPane = mainFrame.getContentPane();
-//        mainFrame.setLayout(new BorderLayout());
         menuItemListener = new MenuItemListener();
         outputWidth = ApplicationDefaults.DEFAULT_OUTPUT_WIDTH;
         originalText = "";
@@ -54,6 +60,11 @@ public class GUI implements Runnable {
         open.addActionListener(menuItemListener);
         open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, MENU_SHORTCUT_MASK));
         fileMenu.add(open);
+
+        save = new JMenuItem("Save...", KeyEvent.VK_S);
+        save.addActionListener(menuItemListener);
+        save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, MENU_SHORTCUT_MASK));
+        fileMenu.add(save);
 
         // set up the bottom panel
         bottomPanel = new JPanel();
@@ -140,7 +151,46 @@ public class GUI implements Runnable {
                     File file = fileChooser.getSelectedFile();
                     loadFile(file);
                 }
+            } else if (eventSource == save) {
+
+                // let user pick a file
+                fileChooser = new JFileChooser();
+                fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+                fileChooser.addChoosableFileFilter(PLAIN_TEXT_FILTER);
+                fileChooser.setFileFilter(PLAIN_TEXT_FILTER);
+                int result = fileChooser.showSaveDialog(mainFrame);
+                if (result == JFileChooser.APPROVE_OPTION) { // if the user chooses something
+
+                    File file = fileChooser.getSelectedFile();
+                    saveFile(file);
+                }
             }
+        }
+    }
+
+    private void saveFile(File file) {
+        saveFile(file.toPath());
+    }
+
+    private void saveFile(Path path) {
+        saveFile(path.toString());
+    }
+
+    private void saveFile(String path) {
+        try (
+                FileOutputStream fos = new FileOutputStream(path);
+                OutputStreamWriter writer = new OutputStreamWriter(fos)
+        ) {
+            writer.write(outputTextArea.getText());
+            JOptionPane.showMessageDialog(mainFrame,
+                    "Save complete.",
+                    "",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(mainFrame,
+                    "Unable to save.\n\nError message: " + e.getLocalizedMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
