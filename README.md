@@ -1,5 +1,5 @@
 # Phill's Quill
-Phill's Quill is a tool aimed to take a .docx file and output the text in a hard-wrapped format.
+Phill's Quill is a tool aimed to take a .docx file and output plain text in a hard-wrapped format.
 
 ## Installation
 1. Navigate to [the releases](https://github.com/Zierman/phillsquill/releases) for this project.
