@@ -1,6 +1,8 @@
 package us.zierman.joshua.phillsquill;
 
 import org.apache.commons.cli.*;
+import us.zierman.joshua.phillsquill.gui.GUI;
+import us.zierman.joshua.phillsquill.gui.View;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -56,7 +58,7 @@ public class Main {
                 List<String> otherArgs = commandLine.getArgList();
                 if (otherArgs.size() < 1) {
                     // since no file was provided we'll try launching the gui.
-                    new GUI(width, autoConvertIsSet).run();
+                    new GUI(width, null, autoConvertIsSet).run();
                 } else if (commandLine.hasOption(guiOption)) { // user wants to run in GUI and provided a path
                     Path path = Path.of(otherArgs.get(0));
                     new GUI(width, path, autoConvertIsSet).run();
