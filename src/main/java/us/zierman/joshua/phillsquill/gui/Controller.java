@@ -33,7 +33,7 @@ import java.nio.file.Path;
 
 public class Controller {
     static final Clipboard CLIPBOARD = Toolkit.getDefaultToolkit().getSystemClipboard();
-    private View view;
+    private MainView view;
     private Model model;
     private final ConvertButtonListener convertButtonListener;
     private final ResetButtonListener resetButtonListener;
@@ -46,7 +46,7 @@ public class Controller {
         menuItemListener = new MenuItemListener();
     }
 
-    public void setView(View view) {
+    public void setView(MainView view) {
         this.view = view;
     }
 
@@ -176,8 +176,8 @@ public class Controller {
                 // let user pick a file
                 view.fileChooser = new JFileChooser();
                 view.fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
-                view.fileChooser.addChoosableFileFilter(View.DOCX_FILTER);
-                view.fileChooser.setFileFilter(View.DOCX_FILTER);
+                view.fileChooser.addChoosableFileFilter(MainView.DOCX_FILTER);
+                view.fileChooser.setFileFilter(MainView.DOCX_FILTER);
                 int result = view.fileChooser.showOpenDialog(view.mainFrame);
                 if (result == JFileChooser.APPROVE_OPTION) { // if the user chooses something
 
@@ -189,8 +189,8 @@ public class Controller {
                 // let user pick a file
                 view.fileChooser = new JFileChooser();
                 view.fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
-                view.fileChooser.addChoosableFileFilter(View.PLAIN_TEXT_FILTER);
-                view.fileChooser.setFileFilter(View.PLAIN_TEXT_FILTER);
+                view.fileChooser.addChoosableFileFilter(MainView.PLAIN_TEXT_FILTER);
+                view.fileChooser.setFileFilter(MainView.PLAIN_TEXT_FILTER);
                 int result = view.fileChooser.showSaveDialog(view.mainFrame);
                 if (result == JFileChooser.APPROVE_OPTION) { // if the user chooses something
 

@@ -20,13 +20,13 @@ import java.nio.file.Path;
 public class GUI implements Runnable {
     private final Controller controller;
     private final Model model;
-    private final View view;
+    private final MainView view;
 
     public GUI(int width, Path path) {
         this.model = new Model();
         this.model.outputWidth = width;
         this.controller = new Controller(model);
-        this.view = new View(controller);
+        this.view = new MainView(controller);
 
         if(path != null){
             this.controller.loadFile(path);

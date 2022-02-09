@@ -164,7 +164,7 @@ public class PreferencesFrame extends JFrame {
     public static void main(String[] args) {
         Model model = new Model();
         Controller controller = new Controller(model);
-        View view = new View(controller);
+        MainView view = new MainView(controller);
         JFrame frame = new PreferencesFrame(controller);
         frame.setVisible(true);
     }

@@ -15,13 +15,15 @@
  */
 package us.zierman.joshua.phillsquill.gui;
 
+import us.zierman.joshua.phillsquill.ApplicationConstants;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-public class View {
+public class MainView {
 
     static final int MENU_SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
     static final FileNameExtensionFilter PLAIN_TEXT_FILTER = new FileNameExtensionFilter(
@@ -42,6 +44,7 @@ public class View {
     JMenuItem copy;
     JMenuItem copyAll;
     JMenuItem preferences;
+    JMenuItem about;
     JPanel bottomPanel;
     JLabel widthFieldLabel;
     JTextField widthField;
@@ -50,7 +53,7 @@ public class View {
     JTextArea outputTextArea;
     private final Controller controller;
 
-    public View(Controller controller) throws HeadlessException {
+    public MainView(Controller controller) throws HeadlessException {
         this.controller = controller;
         controller.setView(this);
         mainFrame = new JFrame();
@@ -96,11 +99,17 @@ public class View {
 
         preferences = new JMenuItem("Preferences...");
         preferences.addActionListener(e -> {
-            var prefrencesFrame = new PreferencesFrame(controller);
-            prefrencesFrame.setVisible(true);
+            var preferencesFrame = new PreferencesFrame(controller);
+            preferencesFrame.setVisible(true);
         });
         editMenu.add(new JSeparator());
         editMenu.add(preferences);
+
+        about = new JMenuItem("About");
+        about.addActionListener(e -> {
+            JOptionPane.showMessageDialog(mainFrame, ApplicationConstants.ABOUT_MESSAGE_TEXT_AREA, "About Phill's Quill", JOptionPane.PLAIN_MESSAGE);
+        });
+        menuBar.add(about);
 
         // set up the bottom panel
         bottomPanel = new JPanel();
