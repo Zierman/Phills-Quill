@@ -13,14 +13,58 @@ Phill's Quill is a tool aimed to take a .docx file and output plain text in a ha
     alias phillsquill="java -jar <path-to-phillsquill-jar>"
 ```
 
-## Usage
+## Usage (GUI)
+
+
+### Launching the Program
+A easy way to run the program is to just double-click on the jar file. 
+
+Another way is to use the `-g` option when launching the program from a script or shell. 
+See [Usage(CLI)](#Usage-(CLI)) for more info.
+
+### Opening a .docx file
+In the menu bar click on **File**, then click **Open...**. 
+
+Alternatively you can use the shortcut:
+- Windows: Control + O
+- Mac: Command + O
+
+The system will open up a dialog to allow you to choose a file. Once you find the file you wish to open press the Open button.
+
+The document will be converted to plain text and shown in the output text area. If the [auto convert preference](#auto-convert) is checked, it will also perform hard wrapping automatically.
+
+### Saving a plain text file
+In the menu bar click on **File**, then click **Save...**.
+
+Alternatively you can use the shortcut:
+- Windows: Control + S
+- Mac: Command + S
+
+The system will open up a dialog to allow you to choose a file. Once you enter the filename you wish to save as, press the Save button.
+
+### Copy All
+If you wish to quickly copy all output text to the clipboard, click **Edit** in the menu bar and then click **Copy All**.
+
+Alternatively you can use the shortcut:
+- Windows: Control + Shift + C
+- Mac: Command + Shift + C
+
+### Preferences
+To access preferences click **Edit** in the menu bar and then click **Preferences...**.
+
+#### Default Output Width
+The default output width is the initial value that will be used in the output width field when running the program 
+without the `-w` option as well as the value that will be used when clicking the reset button.
+
+The value must be a positive integer.
+
+#### Auto Convert
+When the Auto Convert preference is checked, conversions will happen automatically when opening a new document or 
+resetting the output width field.
+
+## Usage (CLI)
 The following examples assume you set up a `phillsquill` command like shown in the instillation steps above.
 If not, just replace `phillsquill` with `java -jar <path-to-phillsquill-jar>` where `<path-to-phillsquill-jar>` is a placeholder for the path to wherever you placed the jar file.
-
-### Running the program in GUI Mode
-Launching the jar file without providing any arguments should open the application in GUI mode. Alternitively you can use the `-g` argument to run in GUI mode as well which allows you to provide other arguments (see Convert .docx File To Plain Text via command line secton).
-
-If you want to launch the program in auto-conversion mode, use the `-a` option. This will make it so when you load a new document it will be folded without needing to press the convert button.
 
 ### Show Help
 To show a help message, you can run this:

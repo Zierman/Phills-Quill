@@ -15,8 +15,6 @@
  */
 package us.zierman.joshua.phillsquill.gui;
 
-import us.zierman.joshua.phillsquill.ApplicationDefaults;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -43,10 +41,12 @@ public class View {
     JMenuItem selectAll;
     JMenuItem copy;
     JMenuItem copyAll;
+    JMenuItem preferences;
     JPanel bottomPanel;
     JLabel widthFieldLabel;
     JTextField widthField;
     JButton convertButton;
+    JButton resetButton;
     JTextArea outputTextArea;
     private final Controller controller;
 
@@ -54,6 +54,7 @@ public class View {
         this.controller = controller;
         controller.setView(this);
         mainFrame = new JFrame();
+        mainFrame.setTitle("Phill's Quill");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container contentPane = mainFrame.getContentPane();
 
@@ -93,6 +94,14 @@ public class View {
         copyAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, MENU_SHORTCUT_MASK | InputEvent.SHIFT_DOWN_MASK));
         editMenu.add(copyAll);
 
+        preferences = new JMenuItem("Preferences...");
+        preferences.addActionListener(e -> {
+            var prefrencesFrame = new PreferencesFrame(controller);
+            prefrencesFrame.setVisible(true);
+        });
+        editMenu.add(new JSeparator());
+        editMenu.add(preferences);
+
         // set up the bottom panel
         bottomPanel = new JPanel();
         contentPane.add(bottomPanel, BorderLayout.PAGE_END);
@@ -108,6 +117,10 @@ public class View {
         convertButton = new JButton("Convert");
         convertButton.addActionListener(this.controller.getConvertButtonListener());
         bottomPanel.add(convertButton, BorderLayout.LINE_END);
+
+        resetButton = new JButton("Reset");
+        resetButton.addActionListener(this.controller.getResetButtonListener());
+        bottomPanel.add(resetButton, BorderLayout.LINE_END);
 
         // set up the output area
         outputTextArea = new JTextArea();

@@ -17,7 +17,7 @@ package us.zierman.joshua.phillsquill;
 
 import org.apache.commons.cli.*;
 import us.zierman.joshua.phillsquill.gui.GUI;
-import us.zierman.joshua.phillsquill.gui.View;
+import us.zierman.joshua.phillsquill.pref.ApplicationPreferences;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -41,16 +41,14 @@ public class Main {
                 "w",
                 "width",
                 true,
-                "Desired line width (default is " + ApplicationDefaults.DEFAULT_OUTPUT_WIDTH + ").");
+                "Desired line width (default is " + ApplicationPreferences.getOutputWidth() + ").");
         Option helpOption = new Option("h", "help", false, "Show help message.");
         Option guiOption = new Option("g", "gui", false, "launch gui app.");
-        Option autoConvertOption = new Option("a", "auto-convert", false, "Automatically converts when running gui.");
 
         Options options = new Options();
         options.addOption(widthOption);
         options.addOption(helpOption);
         options.addOption(guiOption);
-        options.addOption(autoConvertOption);
 
         try {
             // parse the arguments
@@ -61,22 +59,19 @@ public class Main {
             } else { // the user wants to use the program
 
                 // figure out the width to use
-                int width = Integer.parseInt(commandLine.getOptionValue(widthOption, String.valueOf(ApplicationDefaults.DEFAULT_OUTPUT_WIDTH)));
+                int width = Integer.parseInt(commandLine.getOptionValue(widthOption, String.valueOf(ApplicationPreferences.getOutputWidth())));
                 if (width <= 0) {
                     throw new IllegalArgumentException("width must be positive.");
                 }
-
-                // check for auto-convert flag
-                boolean autoConvertIsSet = commandLine.hasOption(autoConvertOption);
 
                 // get the path to the file
                 List<String> otherArgs = commandLine.getArgList();
                 if (otherArgs.size() < 1) {
                     // since no file was provided we'll try launching the gui.
-                    new GUI(width, null, autoConvertIsSet).run();
+                    new GUI(width, null).run();
                 } else if (commandLine.hasOption(guiOption)) { // user wants to run in GUI and provided a path
                     Path path = Path.of(otherArgs.get(0));
-                    new GUI(width, path, autoConvertIsSet).run();
+                    new GUI(width, path).run();
                 } else{ // user did not want to run with gui and did provide path
 
                     Path path = Path.of(otherArgs.get(0));

@@ -17,6 +17,7 @@ package us.zierman.joshua.phillsquill.gui;
 
 import us.zierman.joshua.phillsquill.DocxFile;
 import us.zierman.joshua.phillsquill.FoldingTool;
+import us.zierman.joshua.phillsquill.pref.ApplicationPreferences;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,11 +36,13 @@ public class Controller {
     private View view;
     private Model model;
     private final ConvertButtonListener convertButtonListener;
+    private final ResetButtonListener resetButtonListener;
     private final MenuItemListener menuItemListener;
 
     public Controller(Model model) {
         this.model = model;
         convertButtonListener = new ConvertButtonListener();
+        resetButtonListener = new ResetButtonListener();
         menuItemListener = new MenuItemListener();
     }
 
@@ -86,7 +89,7 @@ public class Controller {
         // put that text into the text area
         view.outputTextArea.setText(model.originalText);
 
-        if (model.autoConvert) {
+        if (model.shouldAutoConvert) {
             view.convertButton.doClick();
         }
     }
@@ -94,12 +97,12 @@ public class Controller {
     private void updateOutputWidth() {
         // try to update the model with the output width entered in the view
         try {
-            model.outputWidth = Integer.parseInt(view.widthField.getText());
+            model.outputWidth = Integer.parseInt(view.widthField.getText().strip());
 
         } catch (NumberFormatException e) {
             // if the value in the view was invalid, show an error message and keep the old value the same
             JOptionPane.showMessageDialog(view.mainFrame,
-                    "\"" + view.widthField.getText() + "\" cannot be parsed to an integer, using width of " + model.outputWidth + ".",
+                    "\"" + view.widthField.getText().strip() + "\" cannot be parsed to an integer, using width of " + model.outputWidth + ".",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
@@ -116,6 +119,10 @@ public class Controller {
         return convertButtonListener;
     }
 
+    public ActionListener getResetButtonListener() {
+        return resetButtonListener;
+    }
+
     public ActionListener getMenuItemListener() {
         return menuItemListener;
     }
@@ -124,10 +131,38 @@ public class Controller {
         return model.outputWidth;
     }
 
+    public void setOutputWidth(int width) {
+        if (width <= 0){
+            throw new IllegalArgumentException("Output width must be positive");
+        }
+        model.outputWidth = width;
+        view.widthField.setText(String.valueOf(width));
+
+        if(model.shouldAutoConvert){
+            view.convertButton.doClick();
+        }
+    }
+
+    public void setShouldAutoConvert(boolean newValue) {
+        model.shouldAutoConvert = newValue;
+    }
+
+    public boolean getShouldAutoConvert() {
+        return model.shouldAutoConvert;
+    }
+
     private class ConvertButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             updateOutputWidth();
+        }
+
+    }
+
+    private class ResetButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setOutputWidth(ApplicationPreferences.getOutputWidth());
         }
 
     }

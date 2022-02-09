@@ -22,10 +22,9 @@ public class GUI implements Runnable {
     private final Model model;
     private final View view;
 
-    public GUI(int width, Path path, boolean autoConvert) {
+    public GUI(int width, Path path) {
         this.model = new Model();
         this.model.outputWidth = width;
-        this.model.autoConvert = autoConvert;
         this.controller = new Controller(model);
         this.view = new View(controller);
 
