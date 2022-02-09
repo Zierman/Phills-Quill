@@ -1,17 +1,17 @@
 /**
- *    Copyright 2022 Joshua Zierman
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2022 Joshua Zierman
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package us.zierman.joshua.phillsquill.gui;
 
@@ -76,7 +76,7 @@ public class PreferencesFrame extends JFrame {
                     if (newWidth != ApplicationPreferences.getOutputWidth()) {
                         ApplicationPreferences.setOutputWidth(newWidth);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     throw new RuntimeException("Unable to save default output width preference.", e);
                 }
             }
@@ -119,6 +119,14 @@ public class PreferencesFrame extends JFrame {
         pack();
     }
 
+    public static void main(String[] args) {
+        Model model = new Model();
+        Controller controller = new Controller(model);
+        MainView view = new MainView(controller);
+        JFrame frame = new PreferencesFrame(controller);
+        frame.setVisible(true);
+    }
+
     public abstract class PreferenceRow<T extends Component> {
         JPanel panel;
         JLabel label;
@@ -158,15 +166,6 @@ public class PreferencesFrame extends JFrame {
         protected abstract void tryToSave();
 
         protected abstract T makeComponent();
-    }
-
-
-    public static void main(String[] args) {
-        Model model = new Model();
-        Controller controller = new Controller(model);
-        MainView view = new MainView(controller);
-        JFrame frame = new PreferencesFrame(controller);
-        frame.setVisible(true);
     }
 
 }

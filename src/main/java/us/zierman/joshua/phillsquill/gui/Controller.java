@@ -1,17 +1,17 @@
 /**
- *    Copyright 2022 Joshua Zierman
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2022 Joshua Zierman
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package us.zierman.joshua.phillsquill.gui;
 
@@ -33,11 +33,11 @@ import java.nio.file.Path;
 
 public class Controller {
     static final Clipboard CLIPBOARD = Toolkit.getDefaultToolkit().getSystemClipboard();
-    private MainView view;
-    private Model model;
     private final ConvertButtonListener convertButtonListener;
     private final ResetButtonListener resetButtonListener;
     private final MenuItemListener menuItemListener;
+    private MainView view;
+    private final Model model;
 
     public Controller(Model model) {
         this.model = model;
@@ -132,23 +132,23 @@ public class Controller {
     }
 
     public void setOutputWidth(int width) {
-        if (width <= 0){
+        if (width <= 0) {
             throw new IllegalArgumentException("Output width must be positive");
         }
         model.outputWidth = width;
         view.widthField.setText(String.valueOf(width));
 
-        if(model.shouldAutoConvert){
+        if (model.shouldAutoConvert) {
             view.convertButton.doClick();
         }
     }
 
-    public void setShouldAutoConvert(boolean newValue) {
-        model.shouldAutoConvert = newValue;
-    }
-
     public boolean getShouldAutoConvert() {
         return model.shouldAutoConvert;
+    }
+
+    public void setShouldAutoConvert(boolean newValue) {
+        model.shouldAutoConvert = newValue;
     }
 
     private class ConvertButtonListener implements ActionListener {
