@@ -17,6 +17,8 @@ package us.zierman.joshua.phillsquill;
 
 import org.apache.commons.text.WordUtils;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -44,7 +46,7 @@ public class FoldingTool {
         StringBuilder stringBuilder = new StringBuilder();
 
         // split the provided string into lines
-        List<String> lines = List.of(inStr.split("\n"));
+        String[] lines = inStr.split("\n");
 
         // iterate through the lines, wrapping each line
         boolean isFirstLine = true;

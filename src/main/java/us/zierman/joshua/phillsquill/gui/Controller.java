@@ -97,12 +97,12 @@ public class Controller {
     private void updateOutputWidth() {
         // try to update the model with the output width entered
         try {
-            model.outputWidth = Integer.parseInt(view.widthField.getText().strip());
+            model.outputWidth = Integer.parseInt(view.widthField.getText().trim());
 
         } catch (NumberFormatException e) {
             // if the value in the view was invalid, show an error message and keep the old value the same
             JOptionPane.showMessageDialog(view.mainFrame,
-                    "\"" + view.widthField.getText().strip() + "\" cannot be parsed to an integer, using width of " + model.outputWidth + ".",
+                    "\"" + view.widthField.getText().trim() + "\" cannot be parsed to an integer, using width of " + model.outputWidth + ".",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
@@ -170,7 +170,7 @@ public class Controller {
     private class MenuItemListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            var eventSource = e.getSource();
+            Object eventSource = e.getSource();
             if (eventSource == view.open) {
 
                 // let user pick a file
@@ -200,10 +200,10 @@ public class Controller {
             } else if (eventSource == view.selectAll) {
                 view.outputTextArea.selectAll();
             } else if (eventSource == view.copy) {
-                var selection = new StringSelection(view.outputTextArea.getSelectedText());
+                StringSelection selection = new StringSelection(view.outputTextArea.getSelectedText());
                 CLIPBOARD.setContents(selection, null);
             } else if (eventSource == view.copyAll) {
-                var selection = new StringSelection(view.outputTextArea.getText());
+                StringSelection selection = new StringSelection(view.outputTextArea.getText());
                 CLIPBOARD.setContents(selection, null);
             }
         }

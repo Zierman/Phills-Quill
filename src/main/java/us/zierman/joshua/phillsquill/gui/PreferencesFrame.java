@@ -18,6 +18,7 @@ package us.zierman.joshua.phillsquill.gui;
 import us.zierman.joshua.phillsquill.pref.ApplicationPreferences;
 
 import javax.swing.*;
+import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.awt.event.WindowEvent;
@@ -59,11 +60,11 @@ public class PreferencesFrame extends JFrame {
                 dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
             }
         });
-        outputWidthRow = new PreferenceRow<>("Default Output Width: ") {
+        outputWidthRow = new PreferenceRow<JTextField>("Default Output Width: ") {
 
             @Override
             protected void tryToSave() {
-                String text = inputComponent.getText().strip();
+                String text = inputComponent.getText().trim();
                 int newWidth;
                 try {
                     newWidth = Integer.parseInt(text);
@@ -81,8 +82,8 @@ public class PreferencesFrame extends JFrame {
 
             @Override
             protected JTextField makeComponent() {
-                var textField = new JTextField(String.valueOf(ApplicationPreferences.getOutputWidth()), 5);
-                var doc = textField.getDocument();
+                JTextField textField = new JTextField(String.valueOf(ApplicationPreferences.getOutputWidth()), 5);
+                Document doc = textField.getDocument();
                 if (doc instanceof PlainDocument) {
                     ((PlainDocument) doc).setDocumentFilter(new NonNegativeIntegerInputFilter());
                 }
@@ -91,7 +92,7 @@ public class PreferencesFrame extends JFrame {
         };
         rows.add(outputWidthRow);
 
-        shouldAutoConvertRow = new PreferenceRow<>("Auto-Convert: ") {
+        shouldAutoConvertRow = new PreferenceRow<JCheckBox>("Auto-Convert: ") {
             @Override
             protected void tryToSave() {
                 boolean newValue = inputComponent.isSelected();
@@ -103,7 +104,7 @@ public class PreferencesFrame extends JFrame {
 
             @Override
             protected JCheckBox makeComponent() {
-                var checkbox = new JCheckBox();
+                JCheckBox checkbox = new JCheckBox();
                 checkbox.setSelected(ApplicationPreferences.getShouldAutoConvert());
                 return checkbox;
             }

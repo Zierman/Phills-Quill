@@ -20,6 +20,7 @@ import us.zierman.joshua.phillsquill.gui.GUI;
 import us.zierman.joshua.phillsquill.pref.ApplicationPreferences;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class Main {
@@ -70,11 +71,11 @@ public class Main {
                     // since no file was provided we'll try launching the gui.
                     new GUI(width, null).run();
                 } else if (commandLine.hasOption(guiOption)) { // user wants to run in GUI and provided a path
-                    Path path = Path.of(otherArgs.get(0));
+                    Path path = Paths.get(otherArgs.get(0).trim());
                     new GUI(width, path).run();
                 } else { // user did not want to run with gui and did provide path
 
-                    Path path = Path.of(otherArgs.get(0));
+                    Path path = Paths.get(otherArgs.get(0).trim());
 
                     // perform the conversion
                     DocxFile docxFile = new DocxFile(path);

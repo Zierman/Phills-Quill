@@ -23,23 +23,21 @@ public class ApplicationConstants {
     private static JTextArea createAboutMessageTextArea() {
         {
             JTextArea textArea = new JTextArea(
-                    """
-                            Program Name: Phill's Quill
-                            GitHub Page: https://github.com/Zierman/phillsquill
-                            License: Apache License Version 2.0, January 2004
-                                        
-                            Hi. My name is Joshua Zierman, the initial author of Phill's Quill.
-                                        
-                            When I decided to create this tool, I had two motivations:
-                                        
-                                Firstly I wanted to practice writing Java and play with things that I haven't ued before.
-                                        
-                                Secondly I wanted to create a tool that would allow my D&D playgroup to convert notes written in MS Word into
-                                hard-wrapped plain text so it is more readable when posted in our text chat channel.
-                                                        
-                            I hope you find this program useful. If you find any bugs or have a request, please
-                            file an issue at https://github.com/Zierman/phillsquill/issues/new
-                            """);
+                    "Program Name: Phill's Quill\n" +
+                    "GitHub Page: https://github.com/Zierman/phillsquill\n" +
+                    "License: Apache License Version 2.0, January 2004\n" +
+                    "\n" +
+                    "Hi. My name is Joshua Zierman, the initial author of Phill's Quill.\n" +
+                    "\n" +
+                    "When I decided to create this tool, I had two motivations:\n" +
+                    "\n" +
+                    "    Firstly I wanted to practice writing Java and play with things that I haven't ued before.\n" +
+                    "\n" +
+                    "    Secondly I wanted to create a tool that would allow my D&D playgroup to convert notes written in MS Word into\n" +
+                    "    hard-wrapped plain text so it is more readable when posted in our text chat channel.\n" +
+                    "\n" +
+                    "I hope you find this program useful. If you find any bugs or have a request, please\n" +
+                    "file an issue at https://github.com/Zierman/phillsquill/issues/new\n");
             textArea.setEditable(false);
             return textArea;
         }

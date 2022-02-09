@@ -25,7 +25,8 @@ import java.awt.event.KeyEvent;
 
 public class MainView {
 
-    static final int MENU_SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
+    @SuppressWarnings("deprecation") // Targeting older version
+    static final int MENU_SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
     static final FileNameExtensionFilter PLAIN_TEXT_FILTER = new FileNameExtensionFilter(
             ".txt",
             "txt");
@@ -99,7 +100,7 @@ public class MainView {
 
         preferences = new JMenuItem("Preferences...");
         preferences.addActionListener(e -> {
-            var preferencesFrame = new PreferencesFrame(controller);
+            JFrame preferencesFrame = new PreferencesFrame(controller);
             preferencesFrame.setVisible(true);
         });
         editMenu.add(new JSeparator());
