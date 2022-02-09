@@ -14,14 +14,14 @@ Prerequisit: You must have a recent version of Java installed to run this progra
     alias phillsquill="java -jar <path-to-phillsquill-jar>"
 ```
 
-## Usage (GUI)
+## Usage-GUI
 
 
 ### Launching the Program
 An easy way to run the program is to just double-click on the jar file. 
 
 Another way is to use the `-g` option when launching the program from a script or shell. 
-See [Usage(CLI)](#Usage-(CLI)) for more info.
+See the [CLI usage section](#usage-cli) for more info.
 
 ### Opening a .docx file
 In the menu bar click on **File**, then click **Open...**. 
@@ -63,7 +63,7 @@ The value must be a positive integer.
 When the Auto Convert preference is checked, conversions will happen automatically when opening a new document or 
 resetting the output width field.
 
-## Usage (CLI)
+## Usage-CLI
 The following examples assume you set up a `phillsquill` command like shown in the instillation steps above.
 If not, just replace `phillsquill` with `java -jar <path-to-phillsquill-jar>` where `<path-to-phillsquill-jar>` is a placeholder for the path to wherever you placed the jar file.
 
