@@ -17,7 +17,7 @@ Phill's Quill is a tool aimed to take a .docx file and output plain text in a ha
 
 
 ### Launching the Program
-A easy way to run the program is to just double-click on the jar file. 
+An easy way to run the program is to just double-click on the jar file. 
 
 Another way is to use the `-g` option when launching the program from a script or shell. 
 See [Usage(CLI)](#Usage-(CLI)) for more info.

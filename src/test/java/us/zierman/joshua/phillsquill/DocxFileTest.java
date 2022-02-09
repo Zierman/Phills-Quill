@@ -18,7 +18,6 @@ package us.zierman.joshua.phillsquill;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,7 +37,7 @@ class DocxFileTest {
     void getText() {
         Path pathToTestDoc = Path.of("src", "test", "resources", "tmp.docx");
         DocxFile docxFile = new DocxFile(pathToTestDoc);
-        String expectedContent = """
+        @SuppressWarnings("SpellCheckingInspection") String expectedContent = """
                 Lorem Ipsum Dolor
 
 

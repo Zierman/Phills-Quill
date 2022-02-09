@@ -95,7 +95,7 @@ public class Controller {
     }
 
     private void updateOutputWidth() {
-        // try to update the model with the output width entered in the view
+        // try to update the model with the output width entered
         try {
             model.outputWidth = Integer.parseInt(view.widthField.getText().strip());
 

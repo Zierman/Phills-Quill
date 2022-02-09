@@ -18,7 +18,9 @@ package us.zierman.joshua.phillsquill.gui;
 import java.nio.file.Path;
 
 public class GUI implements Runnable {
+    @SuppressWarnings("FieldCanBeLocal")
     private final Controller controller;
+    @SuppressWarnings("FieldCanBeLocal")
     private final Model model;
     private final MainView view;
 

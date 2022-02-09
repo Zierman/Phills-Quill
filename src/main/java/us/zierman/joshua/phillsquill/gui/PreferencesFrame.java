@@ -43,9 +43,7 @@ public class PreferencesFrame extends JFrame {
         add(bottomPanel, BorderLayout.PAGE_END);
         bottomPanel.add(cancelButton);
         bottomPanel.add(saveChangesButton);
-        cancelButton.addActionListener(e -> {
-            dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        });
+        cancelButton.addActionListener(e -> dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING)));
         saveChangesButton.addActionListener(e -> {
 
             // try to process each row
@@ -61,7 +59,7 @@ public class PreferencesFrame extends JFrame {
                 dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
             }
         });
-        outputWidthRow = new PreferenceRow<JTextField>("Default Output Width: ") {
+        outputWidthRow = new PreferenceRow<>("Default Output Width: ") {
 
             @Override
             protected void tryToSave() {
@@ -93,7 +91,7 @@ public class PreferencesFrame extends JFrame {
         };
         rows.add(outputWidthRow);
 
-        shouldAutoConvertRow = new PreferenceRow<JCheckBox>("Auto-Convert: ") {
+        shouldAutoConvertRow = new PreferenceRow<>("Auto-Convert: ") {
             @Override
             protected void tryToSave() {
                 boolean newValue = inputComponent.isSelected();
@@ -122,6 +120,7 @@ public class PreferencesFrame extends JFrame {
     public static void main(String[] args) {
         Model model = new Model();
         Controller controller = new Controller(model);
+        //noinspection unused
         MainView view = new MainView(controller);
         JFrame frame = new PreferencesFrame(controller);
         frame.setVisible(true);
@@ -144,7 +143,7 @@ public class PreferencesFrame extends JFrame {
         /**
          * Saves the changes.
          *
-         * @return true if save was successfull
+         * @return true if save was successful, else false
          */
         public boolean saveChanges() {
 

@@ -32,6 +32,7 @@ public class MainView {
     static final FileNameExtensionFilter DOCX_FILTER = new FileNameExtensionFilter(
             ".docx",
             "docx");
+    @SuppressWarnings("FieldCanBeLocal")
     private final Controller controller;
     JFrame mainFrame;
     JFileChooser fileChooser;
@@ -105,16 +106,14 @@ public class MainView {
         editMenu.add(preferences);
 
         about = new JMenuItem("About");
-        about.addActionListener(e -> {
-            JOptionPane.showMessageDialog(mainFrame, ApplicationConstants.ABOUT_MESSAGE_TEXT_AREA, "About Phill's Quill", JOptionPane.PLAIN_MESSAGE);
-        });
+        about.addActionListener(e -> JOptionPane.showMessageDialog(mainFrame, ApplicationConstants.ABOUT_MESSAGE_TEXT_AREA, "About Phill's Quill", JOptionPane.PLAIN_MESSAGE));
         menuBar.add(about);
 
         // set up the bottom panel
         bottomPanel = new JPanel();
         contentPane.add(bottomPanel, BorderLayout.PAGE_END);
 
-        widthFieldLabel = new JLabel("Output Wdith: ");
+        widthFieldLabel = new JLabel("Output Width: ");
         bottomPanel.add(widthFieldLabel, BorderLayout.LINE_START);
 
         widthField = new JTextField();
