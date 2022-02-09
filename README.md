@@ -2,7 +2,7 @@
 Phill's Quill is a tool aimed to take a .docx file and output plain text in a hard-wrapped format.
 
 ## Installation
-Prerequisit: You must have a recent version of Java installed to run this program. Visit [the java download page](https://www.java.com/download/) if you need to install Java.
+Prerequisit: You must have a recent version of Java installed to run this program. Visit [the java download page](https://www.oracle.com/java/technologies/downloads/) if you need to install Java.
 1. Navigate to [the releases](https://github.com/Zierman/phillsquill/releases) for this project.
 2. Choose the version of the software you are interested in.
 3. Under assets for the desired version download the jar file (ends in ".jar").
