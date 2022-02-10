@@ -22,6 +22,9 @@ import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +35,15 @@ public class PreferencesFrame extends JFrame {
     JPanel bottomPanel = new JPanel();
     List<PreferenceRow<?>> rows = new ArrayList<>();
     PreferenceRow<JTextField> outputWidthRow;
-    PreferenceRow<JCheckBox> shouldAutoConvertRow;
+    PreferenceRow<JCheckBox> shouldAutoWrapRow;
+    PreferenceRow<DirectoryInputComponent> defaultSaveDirectoryRow;
+    PreferenceRow<DirectoryInputComponent> defaultOpenDirectoryRow;
     JButton cancelButton = new JButton("Cancel");
     JButton saveChangesButton = new JButton("Save Changes");
 
     public PreferencesFrame(Controller controller) {
         this.controller = controller;
+        this.setTitle("Preferences");
         rowsPanel.setLayout(new BoxLayout(rowsPanel, BoxLayout.Y_AXIS));
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
         add(rowsPanel, BorderLayout.CENTER);
@@ -92,24 +98,70 @@ public class PreferencesFrame extends JFrame {
         };
         rows.add(outputWidthRow);
 
-        shouldAutoConvertRow = new PreferenceRow<JCheckBox>("Auto-Convert: ") {
+        shouldAutoWrapRow = new PreferenceRow<JCheckBox>("Auto-Wrap: ") {
             @Override
             protected void tryToSave() {
                 boolean newValue = inputComponent.isSelected();
-                if (newValue != controller.getShouldAutoConvert()) {
-                    ApplicationPreferences.setShouldAutoConvert(newValue);
-                    controller.setShouldAutoConvert(newValue);
+                if (newValue != controller.getShouldAutoWrap()) {
+                    ApplicationPreferences.setShouldAutoWrapKey(newValue);
+                    controller.setShouldAutoWrap(newValue);
                 }
             }
 
             @Override
             protected JCheckBox makeComponent() {
                 JCheckBox checkbox = new JCheckBox();
-                checkbox.setSelected(ApplicationPreferences.getShouldAutoConvert());
+                checkbox.setSelected(ApplicationPreferences.getShouldAutoWrapKey());
                 return checkbox;
             }
         };
-        rows.add(shouldAutoConvertRow);
+        rows.add(shouldAutoWrapRow);
+
+        defaultOpenDirectoryRow = new PreferenceRow<DirectoryInputComponent>("Default Open Directory: ") {
+            @Override
+            protected void tryToSave() {
+                Path newValue;
+                try {
+                    newValue = Paths.get(inputComponent.textField.getText().trim());
+                } catch (InvalidPathException e) {
+                    throw new RuntimeException("Provided Default Open Directory value \"" +
+                                               inputComponent.textField.getText().trim() +
+                                               "\" is not a valid path.", e);
+                }
+                if(newValue != ApplicationPreferences.getDefaultOpenDirectory()){
+                    ApplicationPreferences.setDefaultOpenDirectory(newValue);
+                }
+            }
+
+            @Override
+            protected DirectoryInputComponent makeComponent() {
+                return new DirectoryInputComponent(ApplicationPreferences.getRawDefaultOpenDirectory());
+            }
+        };
+        rows.add(defaultOpenDirectoryRow);
+
+        defaultSaveDirectoryRow = new PreferenceRow<DirectoryInputComponent>("Default Save Directory: ") {
+            @Override
+            protected void tryToSave() {
+                Path newValue;
+                try {
+                    newValue = Paths.get(inputComponent.textField.getText().trim());
+                } catch (InvalidPathException e) {
+                    throw new RuntimeException("Provided Default Save Directory value \"" +
+                                               inputComponent.textField.getText().trim() +
+                                               "\" is not a valid path.", e);
+                }
+                if(newValue != ApplicationPreferences.getDefaultSaveDirectory()){
+                    ApplicationPreferences.setDefaultSaveDirectory(newValue);
+                }
+            }
+
+            @Override
+            protected DirectoryInputComponent makeComponent() {
+                return new DirectoryInputComponent(ApplicationPreferences.getRawDefaultSaveDirectory());
+            }
+        };
+        rows.add(defaultSaveDirectoryRow);
 
         for (PreferenceRow<?> row : rows) {
             rowsPanel.add(row.panel);
@@ -127,11 +179,32 @@ public class PreferencesFrame extends JFrame {
         frame.setVisible(true);
     }
 
+    /**
+     * A row that labels a preference and provides the user an input component to modify the preference.
+     * @param <T> the type of input component that will allow the user to modify the preference.
+     */
     public abstract class PreferenceRow<T extends Component> {
+
+        /**
+         * a panel that contains all the other components.
+         */
         JPanel panel;
+
+        /**
+         * a label that indicates what preference is associated with the row.
+         */
         JLabel label;
+
+        /**
+         * The component that allows the user to modify the preference.
+         */
         T inputComponent;
 
+        /**
+         * Creates a preference row.
+         *
+         * @param labelText The text that will be used for the label to indicate the preference associated with the row.
+         */
         public PreferenceRow(String labelText) {
             this.panel = new JPanel();
             this.label = new JLabel(labelText);
@@ -162,9 +235,17 @@ public class PreferencesFrame extends JFrame {
             }
         }
 
-
+        /**
+         * Tries to save the preference in the row, throwing any exception if failing.
+         *
+         * Failing message should be meaningful to the user as it will be shown to the user as a dialog message.
+         */
         protected abstract void tryToSave();
 
+        /**
+         * Makes the component that will be stored in the component field.
+         * @return a component that the user can interact with to change the preference.
+         */
         protected abstract T makeComponent();
     }
 

@@ -33,7 +33,7 @@ import java.nio.file.Path;
 
 public class Controller {
     static final Clipboard CLIPBOARD = Toolkit.getDefaultToolkit().getSystemClipboard();
-    private final ConvertButtonListener convertButtonListener;
+    private final WrapButtonListener wrapButtonListener;
     private final ResetButtonListener resetButtonListener;
     private final MenuItemListener menuItemListener;
     private MainView view;
@@ -41,7 +41,7 @@ public class Controller {
 
     public Controller(Model model) {
         this.model = model;
-        convertButtonListener = new ConvertButtonListener();
+        wrapButtonListener = new WrapButtonListener();
         resetButtonListener = new ResetButtonListener();
         menuItemListener = new MenuItemListener();
     }
@@ -82,15 +82,15 @@ public class Controller {
     }
 
     void loadFile(Path path) {
-        // convert the file content to hard-wrapped plain text
+        // convert the file content to plain text
         DocxFile docxFile = new DocxFile(path);
         model.originalText = docxFile.getText();
 
         // put that text into the text area
         view.outputTextArea.setText(model.originalText);
 
-        if (model.shouldAutoConvert) {
-            view.convertButton.doClick();
+        if (model.shouldAutoWrap) {
+            view.wrapButton.doClick();
         }
     }
 
@@ -115,8 +115,8 @@ public class Controller {
         view.outputTextArea.setText(model.outputText);
     }
 
-    public ActionListener getConvertButtonListener() {
-        return convertButtonListener;
+    public ActionListener getWrapButtonListener() {
+        return wrapButtonListener;
     }
 
     public ActionListener getResetButtonListener() {
@@ -138,20 +138,20 @@ public class Controller {
         model.outputWidth = width;
         view.widthField.setText(String.valueOf(width));
 
-        if (model.shouldAutoConvert) {
-            view.convertButton.doClick();
+        if (model.shouldAutoWrap) {
+            view.wrapButton.doClick();
         }
     }
 
-    public boolean getShouldAutoConvert() {
-        return model.shouldAutoConvert;
+    public boolean getShouldAutoWrap() {
+        return model.shouldAutoWrap;
     }
 
-    public void setShouldAutoConvert(boolean newValue) {
-        model.shouldAutoConvert = newValue;
+    public void setShouldAutoWrap(boolean newValue) {
+        model.shouldAutoWrap = newValue;
     }
 
-    private class ConvertButtonListener implements ActionListener {
+    private class WrapButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             updateOutputWidth();
@@ -175,6 +175,10 @@ public class Controller {
 
                 // let user pick a file
                 view.fileChooser = new JFileChooser();
+                Path defaultOpenDirectory = ApplicationPreferences.getDefaultOpenDirectory();
+                if ( defaultOpenDirectory != null){
+                    view.fileChooser.setCurrentDirectory(defaultOpenDirectory.toFile());
+                }
                 view.fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
                 view.fileChooser.addChoosableFileFilter(MainView.DOCX_FILTER);
                 view.fileChooser.setFileFilter(MainView.DOCX_FILTER);
@@ -188,6 +192,10 @@ public class Controller {
 
                 // let user pick a file
                 view.fileChooser = new JFileChooser();
+                Path defaultSaveDirectory = ApplicationPreferences.getDefaultSaveDirectory();
+                if ( defaultSaveDirectory != null){
+                    view.fileChooser.setCurrentDirectory(defaultSaveDirectory.toFile());
+                }
                 view.fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
                 view.fileChooser.addChoosableFileFilter(MainView.PLAIN_TEXT_FILTER);
                 view.fileChooser.setFileFilter(MainView.PLAIN_TEXT_FILTER);

@@ -50,7 +50,7 @@ public class MainView {
     JPanel bottomPanel;
     JLabel widthFieldLabel;
     JTextField widthField;
-    JButton convertButton;
+    JButton wrapButton;
     JButton resetButton;
     JTextArea outputTextArea;
 
@@ -122,11 +122,11 @@ public class MainView {
         widthField.setText(String.valueOf(this.controller.getOutputWidth()));
         bottomPanel.add(widthField, BorderLayout.CENTER);
 
-        convertButton = new JButton("Convert");
-        convertButton.addActionListener(this.controller.getConvertButtonListener());
-        bottomPanel.add(convertButton, BorderLayout.LINE_END);
+        wrapButton = new JButton("Wrap");
+        wrapButton.addActionListener(this.controller.getWrapButtonListener());
+        bottomPanel.add(wrapButton, BorderLayout.LINE_END);
 
-        resetButton = new JButton("Reset");
+        resetButton = new JButton("Reset Output Width");
         resetButton.addActionListener(this.controller.getResetButtonListener());
         bottomPanel.add(resetButton, BorderLayout.LINE_END);
 
