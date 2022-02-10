@@ -32,7 +32,7 @@ Alternatively you can use the shortcut:
 
 The system will open up a dialog to allow you to choose a file. Once you find the file you wish to open press the Open button.
 
-The document will be converted to plain text and shown in the output text area. If the [auto convert preference](#auto-convert) is checked, it will also perform hard wrapping automatically.
+The document will be converted to plain text and shown in the output text area. If the [auto convert preference](#auto-wrap) is checked, it will also perform hard wrapping automatically.
 
 ### Saving a plain text file
 In the menu bar click on **File**, then click **Save...**.
@@ -59,8 +59,8 @@ without the `-w` option as well as the value that will be used when clicking the
 
 The value must be a positive integer.
 
-#### Auto Convert
-When the Auto Convert preference is checked, conversions will happen automatically when opening a new document or 
+#### Auto Wrap
+When the auto wrap preference is checked, the output text will be wrapped automatically when opening a new document or 
 resetting the output width field.
 
 #### Default Open Directory
