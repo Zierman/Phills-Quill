@@ -52,6 +52,10 @@ public class ApplicationPreferences {
         preferences.put(SAVE_DIRECTORY_KEY, path.toString().trim());
     }
 
+    public static String getRawDefaultSaveDirectory() {
+        return preferences.get(SAVE_DIRECTORY_KEY, DEFAULT_SAVE_DIRECTORY);
+    }
+
     public static Path getDefaultSaveDirectory() {
         String result = preferences.get(SAVE_DIRECTORY_KEY, DEFAULT_SAVE_DIRECTORY);
         if(result.isEmpty()) {
@@ -74,6 +78,10 @@ public class ApplicationPreferences {
         }
     }
 
+
+    public static String getRawDefaultOpenDirectory() {
+        return preferences.get(OPEN_DIRECTORY_KEY, DEFAULT_OPEN_DIRECTORY);
+    }
 
     public static void setDefaultOpenDirectory(Path path) {
         preferences.put(OPEN_DIRECTORY_KEY, path.toString().trim());

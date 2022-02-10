@@ -135,12 +135,7 @@ public class PreferencesFrame extends JFrame {
 
             @Override
             protected DirectoryInputComponent makeComponent() {
-                Path initialPath = ApplicationPreferences.getDefaultOpenDirectory();
-                String initialPathString = new JFileChooser().getCurrentDirectory().toString();
-                if (initialPath != null) {
-                    initialPathString = initialPath.toString();
-                }
-                return new DirectoryInputComponent(initialPathString);
+                return new DirectoryInputComponent(ApplicationPreferences.getRawDefaultOpenDirectory());
             }
         };
         rows.add(defaultOpenDirectoryRow);
@@ -163,12 +158,7 @@ public class PreferencesFrame extends JFrame {
 
             @Override
             protected DirectoryInputComponent makeComponent() {
-                Path initialPath = ApplicationPreferences.getDefaultSaveDirectory();
-                String initialPathString = new JFileChooser().getCurrentDirectory().toString();
-                if (initialPath != null) {
-                    initialPathString = initialPath.toString();
-                }
-                return new DirectoryInputComponent(initialPathString);
+                return new DirectoryInputComponent(ApplicationPreferences.getRawDefaultSaveDirectory());
             }
         };
         rows.add(defaultSaveDirectoryRow);

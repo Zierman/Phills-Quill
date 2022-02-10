@@ -63,6 +63,22 @@ The value must be a positive integer.
 When the Auto Convert preference is checked, conversions will happen automatically when opening a new document or 
 resetting the output width field.
 
+#### Default Open Directory
+The directory provided in this field will be used as the starting point when choosing a file to open. 
+You can use the browse button to choose a directory with the file chooser or type it in manually.
+
+A non-existing directory provided will not produce an error, 
+but until that directory is created, the program will use the 
+original default directory.
+
+#### Default Save Directory
+The directory provided in this field will be used as the starting point when choosing where to save.
+You can use the browse button to choose a directory with the file chooser or type it in manually.
+
+A non-existing directory provided will not produce an error,
+but until that directory is created, the program will use the
+original default directory.
+
 ## Usage-CLI
 The following examples assume you set up a `phillsquill` command like shown in the instillation steps above.
 If not, just replace `phillsquill` with `java -jar <path-to-phillsquill-jar>` where `<path-to-phillsquill-jar>` is a placeholder for the path to wherever you placed the jar file.
