@@ -179,11 +179,32 @@ public class PreferencesFrame extends JFrame {
         frame.setVisible(true);
     }
 
+    /**
+     * A row that labels a preference and provides the user an input component to modify the preference.
+     * @param <T> the type of input component that will allow the user to modify the preference.
+     */
     public abstract class PreferenceRow<T extends Component> {
+
+        /**
+         * a panel that contains all the other components.
+         */
         JPanel panel;
+
+        /**
+         * a label that indicates what preference is associated with the row.
+         */
         JLabel label;
+
+        /**
+         * The component that allows the user to modify the preference.
+         */
         T inputComponent;
 
+        /**
+         * Creates a preference row.
+         *
+         * @param labelText The text that will be used for the label to indicate the preference associated with the row.
+         */
         public PreferenceRow(String labelText) {
             this.panel = new JPanel();
             this.label = new JLabel(labelText);
@@ -214,9 +235,17 @@ public class PreferencesFrame extends JFrame {
             }
         }
 
-
+        /**
+         * Tries to save the preference in the row, throwing any exception if failing.
+         *
+         * Failing message should be meaningful to the user as it will be shown to the user as a dialog message.
+         */
         protected abstract void tryToSave();
 
+        /**
+         * Makes the component that will be stored in the component field.
+         * @return a component that the user can interact with to change the preference.
+         */
         protected abstract T makeComponent();
     }
 
