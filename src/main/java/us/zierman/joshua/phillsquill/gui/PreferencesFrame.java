@@ -35,7 +35,7 @@ public class PreferencesFrame extends JFrame {
     JPanel bottomPanel = new JPanel();
     List<PreferenceRow<?>> rows = new ArrayList<>();
     PreferenceRow<JTextField> outputWidthRow;
-    PreferenceRow<JCheckBox> shouldAutoConvertRow;
+    PreferenceRow<JCheckBox> shouldAutoWrapRow;
     PreferenceRow<DirectoryInputComponent> defaultSaveDirectoryRow;
     PreferenceRow<DirectoryInputComponent> defaultOpenDirectoryRow;
     JButton cancelButton = new JButton("Cancel");
@@ -98,24 +98,24 @@ public class PreferencesFrame extends JFrame {
         };
         rows.add(outputWidthRow);
 
-        shouldAutoConvertRow = new PreferenceRow<JCheckBox>("Auto-Convert: ") {
+        shouldAutoWrapRow = new PreferenceRow<JCheckBox>("Auto-Wrap: ") {
             @Override
             protected void tryToSave() {
                 boolean newValue = inputComponent.isSelected();
-                if (newValue != controller.getShouldAutoConvert()) {
-                    ApplicationPreferences.setShouldAutoConvertKey(newValue);
-                    controller.setShouldAutoConvert(newValue);
+                if (newValue != controller.getShouldAutoWrap()) {
+                    ApplicationPreferences.setShouldAutoWrapKey(newValue);
+                    controller.setShouldAutoWrap(newValue);
                 }
             }
 
             @Override
             protected JCheckBox makeComponent() {
                 JCheckBox checkbox = new JCheckBox();
-                checkbox.setSelected(ApplicationPreferences.getShouldAutoConvertKey());
+                checkbox.setSelected(ApplicationPreferences.getShouldAutoWrapKey());
                 return checkbox;
             }
         };
-        rows.add(shouldAutoConvertRow);
+        rows.add(shouldAutoWrapRow);
 
         defaultOpenDirectoryRow = new PreferenceRow<DirectoryInputComponent>("Default Open Directory: ") {
             @Override

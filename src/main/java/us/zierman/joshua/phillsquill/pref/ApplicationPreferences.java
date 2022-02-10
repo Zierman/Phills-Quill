@@ -25,8 +25,8 @@ public class ApplicationPreferences {
     private static final Preferences preferences = Preferences.userNodeForPackage(ApplicationPreferences.class);
     private static final int DEFAULT_OUTPUT_WIDTH = 80;
     private static final String OUTPUT_WIDTH_KEY = "OUTPUT_WIDTH";
-    private static final String SHOULD_AUTO_CONVERT_KEY = "SHOULD_AUTO_CONVERT";
-    private static final boolean DEFAULT_SHOULD_AUTO_CONVERT = false;
+    private static final String SHOULD_AUTO_WRAP_KEY = "SHOULD_AUTO_WRAP";
+    private static final boolean DEFAULT_SHOULD_AUTO_WRAP = false;
     private static final String SAVE_DIRECTORY_KEY = "SAVE_DIRECTORY";
     private static final String DEFAULT_SAVE_DIRECTORY = new JFileChooser().getCurrentDirectory().toString();
     private static final String OPEN_DIRECTORY_KEY = "OPEN_DIRECTORY";
@@ -40,12 +40,12 @@ public class ApplicationPreferences {
         preferences.putInt(OUTPUT_WIDTH_KEY, width);
     }
 
-    public static boolean getShouldAutoConvertKey() {
-        return preferences.getBoolean(SHOULD_AUTO_CONVERT_KEY, DEFAULT_SHOULD_AUTO_CONVERT);
+    public static boolean getShouldAutoWrapKey() {
+        return preferences.getBoolean(SHOULD_AUTO_WRAP_KEY, DEFAULT_SHOULD_AUTO_WRAP);
     }
 
-    public static void setShouldAutoConvertKey(boolean newValue) {
-        preferences.putBoolean(SHOULD_AUTO_CONVERT_KEY, newValue);
+    public static void setShouldAutoWrapKey(boolean newValue) {
+        preferences.putBoolean(SHOULD_AUTO_WRAP_KEY, newValue);
     }
 
     public static void setDefaultSaveDirectory(Path path) {
