@@ -22,6 +22,9 @@ import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +36,14 @@ public class PreferencesFrame extends JFrame {
     List<PreferenceRow<?>> rows = new ArrayList<>();
     PreferenceRow<JTextField> outputWidthRow;
     PreferenceRow<JCheckBox> shouldAutoConvertRow;
+    PreferenceRow<DirectoryInputComponent> defaultSaveDirectoryRow;
+    PreferenceRow<DirectoryInputComponent> defaultOpenDirectoryRow;
     JButton cancelButton = new JButton("Cancel");
     JButton saveChangesButton = new JButton("Save Changes");
 
     public PreferencesFrame(Controller controller) {
         this.controller = controller;
+        this.setTitle("Preferences");
         rowsPanel.setLayout(new BoxLayout(rowsPanel, BoxLayout.Y_AXIS));
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
         add(rowsPanel, BorderLayout.CENTER);
@@ -97,7 +103,7 @@ public class PreferencesFrame extends JFrame {
             protected void tryToSave() {
                 boolean newValue = inputComponent.isSelected();
                 if (newValue != controller.getShouldAutoConvert()) {
-                    ApplicationPreferences.setShouldAutoConvert(newValue);
+                    ApplicationPreferences.setShouldAutoConvertKey(newValue);
                     controller.setShouldAutoConvert(newValue);
                 }
             }
@@ -105,11 +111,67 @@ public class PreferencesFrame extends JFrame {
             @Override
             protected JCheckBox makeComponent() {
                 JCheckBox checkbox = new JCheckBox();
-                checkbox.setSelected(ApplicationPreferences.getShouldAutoConvert());
+                checkbox.setSelected(ApplicationPreferences.getShouldAutoConvertKey());
                 return checkbox;
             }
         };
         rows.add(shouldAutoConvertRow);
+
+        defaultOpenDirectoryRow = new PreferenceRow<DirectoryInputComponent>("Default Open Directory: ") {
+            @Override
+            protected void tryToSave() {
+                Path newValue;
+                try {
+                    newValue = Paths.get(inputComponent.textField.getText().trim());
+                } catch (InvalidPathException e) {
+                    throw new RuntimeException("Provided Default Open Directory value \"" +
+                                               inputComponent.textField.getText().trim() +
+                                               "\" is not a valid path.", e);
+                }
+                if(newValue != ApplicationPreferences.getDefaultOpenDirectory()){
+                    ApplicationPreferences.setDefaultOpenDirectory(newValue);
+                }
+            }
+
+            @Override
+            protected DirectoryInputComponent makeComponent() {
+                Path initialPath = ApplicationPreferences.getDefaultOpenDirectory();
+                String initialPathString = new JFileChooser().getCurrentDirectory().toString();
+                if (initialPath != null) {
+                    initialPathString = initialPath.toString();
+                }
+                return new DirectoryInputComponent(initialPathString);
+            }
+        };
+        rows.add(defaultOpenDirectoryRow);
+
+        defaultSaveDirectoryRow = new PreferenceRow<DirectoryInputComponent>("Default Save Directory: ") {
+            @Override
+            protected void tryToSave() {
+                Path newValue;
+                try {
+                    newValue = Paths.get(inputComponent.textField.getText().trim());
+                } catch (InvalidPathException e) {
+                    throw new RuntimeException("Provided Default Save Directory value \"" +
+                                               inputComponent.textField.getText().trim() +
+                                               "\" is not a valid path.", e);
+                }
+                if(newValue != ApplicationPreferences.getDefaultSaveDirectory()){
+                    ApplicationPreferences.setDefaultSaveDirectory(newValue);
+                }
+            }
+
+            @Override
+            protected DirectoryInputComponent makeComponent() {
+                Path initialPath = ApplicationPreferences.getDefaultSaveDirectory();
+                String initialPathString = new JFileChooser().getCurrentDirectory().toString();
+                if (initialPath != null) {
+                    initialPathString = initialPath.toString();
+                }
+                return new DirectoryInputComponent(initialPathString);
+            }
+        };
+        rows.add(defaultSaveDirectoryRow);
 
         for (PreferenceRow<?> row : rows) {
             rowsPanel.add(row.panel);

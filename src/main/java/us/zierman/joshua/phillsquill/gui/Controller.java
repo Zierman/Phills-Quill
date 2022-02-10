@@ -175,6 +175,10 @@ public class Controller {
 
                 // let user pick a file
                 view.fileChooser = new JFileChooser();
+                Path defaultOpenDirectory = ApplicationPreferences.getDefaultOpenDirectory();
+                if ( defaultOpenDirectory != null){
+                    view.fileChooser.setCurrentDirectory(defaultOpenDirectory.toFile());
+                }
                 view.fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
                 view.fileChooser.addChoosableFileFilter(MainView.DOCX_FILTER);
                 view.fileChooser.setFileFilter(MainView.DOCX_FILTER);
@@ -188,6 +192,10 @@ public class Controller {
 
                 // let user pick a file
                 view.fileChooser = new JFileChooser();
+                Path defaultSaveDirectory = ApplicationPreferences.getDefaultSaveDirectory();
+                if ( defaultSaveDirectory != null){
+                    view.fileChooser.setCurrentDirectory(defaultSaveDirectory.toFile());
+                }
                 view.fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
                 view.fileChooser.addChoosableFileFilter(MainView.PLAIN_TEXT_FILTER);
                 view.fileChooser.setFileFilter(MainView.PLAIN_TEXT_FILTER);

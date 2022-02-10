@@ -21,6 +21,6 @@ public class Model {
     String originalText = "";
     String outputText = "";
     int outputWidth = ApplicationPreferences.getOutputWidth();
-    boolean shouldAutoConvert = ApplicationPreferences.getShouldAutoConvert();
+    boolean shouldAutoConvert = ApplicationPreferences.getShouldAutoConvertKey();
 }
 
